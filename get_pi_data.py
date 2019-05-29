@@ -44,7 +44,7 @@ The optional argument flagged by -w has to take the following format
 
 where N1 N2, N3, and N4 represent a number, and d=days, hrs=hours, m=mins, s=seconds. 
 At least one the bracketed items should be included if you specify the -w option. 
-The following are all valid (note that the bracket themselves should be omitted)
+The following are all valid (note that the brackets themselves should be omitted)
 
 python get_pi_data.py sw -w “2d10m” "12:00 April.07.2019 "
 python get_pi_data.py sw -w “2d2hrs5m” "12:00 April.07.2019 "
@@ -76,8 +76,8 @@ series over the past 10 years and wants just daily averages, the following can b
 
 python get_pi_data.py --pave -psize “1d” ew -w "3650d"   
 
-where --psize specifies the packet size with format as per time window and --pave
-specifies we want to average the values in the packet. 
+where --psize specifies the packet size with format as per time window, and --pave
+specifies that we want to average the values in the packet. 
 """
 
 import re
