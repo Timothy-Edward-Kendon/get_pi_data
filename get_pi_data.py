@@ -1,18 +1,18 @@
 """
-Script for extracting time series data from the Equinor's OSI PI Database
-=========================================================================
+Script for extracting time series data from an OSI PI database
+==============================================================
 
 Requirements
 ------------
-1. User needs to have python 3 with 
-2. User needs to apply for access to the installation's PI data in accessIT
-3. User needs to install PI SDK on their local machine to open the ports
+1. User needs to have python 3 installed
+2. User needs access rights to the PI database (For Equinor users, see accessIT)
+3. Equinor users need PI Network Manager running on their local machine.
 
 Preparation before running
 --------------------------
 Create a list of tags you want to extract in a file. The name of the file can
 be specified as a command line argument but the default name is "tag.list".
-One tag per line. The tag name shall be in the format they appear in say PI-Explorer
+One tag per line. The tag name shall be in the format that appear in say PI-Explorer
 
 
 Examples of usage:
@@ -34,7 +34,7 @@ python fetchTags.py se "12:00 April/07/2019 " "12:10:00 2019/07/April"
  
 Using windowing option 'sw'
 ---------------------------
-The windowing option “se” expects the user to provide 1 positional argument,
+The windowing option “sw” expects the user to provide 1 positional argument,
 which is the start time, and one optional argument, which is the time window.
 As with the se option, the positional argument can be expressed in all 
 reasonable datetime formats. The time window is optional because it defaults to 1 day. 
@@ -56,7 +56,7 @@ python fetchTags.py sw -w “10m” "12:00 April.07.2019"
 
 Using windowing option 'ew'
 ---------------------------
-Similar to sw except you specify the end time and the time window. In this case
+Similar to sw, except that you specify the end time and the time window. In this case
 both arguments are optional. The time window defaults to 1 day and the end time 
 defaults to the present time. 
 
