@@ -12,7 +12,7 @@ Preparation before running
 --------------------------
 Create a list of tags you want to extract in a file. The name of the file can
 be specified as a command line argument but the default name is "tag.list".
-One tag per line. The tag name shall be in the format that appear in say PI-Explorer
+One tag per line. Use say PI-Explorer to see a list of available tags.
 
 
 Examples of usage:
