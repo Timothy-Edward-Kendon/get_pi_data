@@ -275,7 +275,7 @@ if __name__ == '__main__':
     if start == None or end == None:
         print("Error with CLI")
         print("Start time registered as ", start)
-        print("End time registered as ", start)
+        print("End time registered as ", end)
         parser.print_help(sys.stderr)
         sys.exit()
 
