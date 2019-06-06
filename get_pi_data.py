@@ -102,6 +102,7 @@ def abodb_connect(userid="piadmin", server="ONO-IMS"):
     """Opens and returns a connection to the database (cstr = connection_string)"""
     connection = win32com.client.gencache.EnsureDispatch('ADODB.Connection')
     cstr = 'PROVIDER=PIOLEDB.1;User ID=%s;Data Source=%s; Persist Security Info=False;'
+    cstr += "Integrated Security=SSPI;"
     connection.Open(cstr % (userid, server))
     return connection
 
@@ -182,19 +183,19 @@ def getTag(tag, startTime, endTime, id, packetsize, average, **kwargs):
     return isEmpty
 
 
-def get_tags():
+def get_tags(tagfile, comment="#"):
     """ Open tag.list file. The file contains tag names as shown in say PI-Explorer 
     """
-    with open("tag.list", "r") as f:
-        lines = f.readlines()
-        tag_list = [line.strip() for line in lines if len(line.strip()) != 0]
-    return tag_list
+    with open(tagfile, "r") as f:
+        tag_list = [line.strip()
+                    for line in f.readlines() if len(line.strip()) != 0]
+    return [tag for tag in tag_list if not tag.startswith(comment)]
 
 
-def extract_data(start, stop, packetsize, average, **kwargs):
+def extract_data(start, stop, packetsize, average, tagfile, **kwargs):
     """ Extracts data from PI into files and signals if a signal was returned
     """
-    tags = get_tags()
+    tags = get_tags(tagfile)
     for tag in tags:
         isEmpty = getTag(tag, start, stop, '', packetsize, average, **kwargs)
         print(start, stop, tag, "Empty" if isEmpty else "Signal")
@@ -227,7 +228,7 @@ def get_cli_args():
                         default="ONO-IMS", help="default: ONO-IMS")
     parser.add_argument('--pave', action="store_true",
                         help="to average the packet values")
-    parser.add_argument('--taglist', type=str, default="tag.list",
+    parser.add_argument('--tagfile', type=str, default="tag.list",
                         help="file containing tag names (default tag.list)")
     parser.add_argument(
         '--psize', type=lambda s: parse_time(s), default=timedelta(days=1),
@@ -283,6 +284,12 @@ if __name__ == '__main__':
     user = args.user
     average = args.pave
     packet_size = args.psize
+    tagfile = args.tagfile
+
+    if not os.path.isfile(tagfile):
+        print("file %s containing list of tags missing" % tagfile)
+        print("see tagfile in usage")
+        sys.exit()
 
     if end < start:
         print("End time cannot be after start time!")
@@ -297,5 +304,5 @@ if __name__ == '__main__':
             print("Packet_size being reduced bigger than requested time window")
             print("Packet size being reduced accordingly")
 
-    extract_data(start, end, packet_size, average,
+    extract_data(start, end, packet_size, average, tagfile,
                  server=server, user=user)
