@@ -46,12 +46,12 @@ where N1 N2, N3, and N4 represent a number, and d=days, hrs=hours, m=mins, s=sec
 At least one the bracketed items should be included if you specify the -w option. 
 The following are all valid (note that the brackets themselves should be omitted)
 
-python get_pi_data.py sw -w “2d10m” "12:00 April.07.2019 "
-python get_pi_data.py sw -w “2d2hrs5m” "12:00 April.07.2019 "
+python get_pi_data.py sw -w "2d10m" "12:00 April.07.2019 "
+python get_pi_data.py sw -w "2d2hrs5m" "12:00 April.07.2019 "
 
 To extract the time series in the example (ref 'se' case) you would type
 
-python get_pi_data.py sw -w “10m” "12:00 April.07.2019"
+python get_pi_data.py sw -w "10m" "12:00 April.07.2019"
 
 
 Using windowing option 'ew'
@@ -62,7 +62,7 @@ defaults to the present time.
 
 To extract the time series in the example (ref 'se' case) you would type
 
-python get_pi_data.py ew -w “10m” -e "12:10 April.07.2019"
+python get_pi_data.py ew -w "10m" -e "12:10 April.07.2019"
 
 
 Additional Options
@@ -74,7 +74,7 @@ A time series is fetched in packets. The values for the packets can be averaged
 so that only one value is written to file. So if the user is fetching a time 
 series over the past 10 years and wants just daily averages, the following can be used
 
-python get_pi_data.py --pave -psize “1d” ew -w "3650d"   
+python get_pi_data.py --pave --psize "1d" ew -w "3650d"   
 
 where --psize specifies the packet size with format as per time window, and --pave
 specifies that we want to average the values in the packet. 
